@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+motor
+langchain
+langchain-google-genai
+tavily-python
+python-dotenv
+apscheduler
+pymongo[srv]==3.12
+sse-starlette # For Server-Sent Events support
+langchain-tavily
