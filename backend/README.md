@@ -84,5 +84,3 @@ pip install -r requirements.txt
 ## 📄 License
 
 [MIT License](LICENSE) – Customize if needed.
-
----
