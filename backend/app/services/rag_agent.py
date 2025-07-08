@@ -76,7 +76,7 @@ async def find_maritime_threats() -> List[ThreatReport]:
     
     response = await agent_executor.ainvoke({"input": query})
     
-    print(f"Agent response 1: {response}")  # Debugging output
+    #print(f"Agent response 1: {response}")  # Debugging output
     
     # Try to parse the agent's final answer
     try:

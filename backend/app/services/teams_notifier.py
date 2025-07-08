@@ -56,12 +56,22 @@ async def send_threat_to_teams(threat: schemas.Threat):
                             "wrap": True,
                             "separator": True
                         },
-                        {
-                            "type": "TextBlock",
-                            "text": threat.source_urls if threat.source_urls else "No source URLs provided.",
-                            "wrap": True,
-                            "separator": True
-                        }
+                        *([
+                                {
+                                    "type": "TextBlock",
+                                    "text": f"[Source {i+1}]({url.strip()})",
+                                    "wrap": True,
+                                    "separator": True,
+                                    "spacing": "Small"
+                                }
+                                for i, url in enumerate(threat.source_urls)
+                            ] if threat.source_urls else [{
+                                "type": "TextBlock",
+                                "text": "No source URLs provided.",
+                                "wrap": True,
+                                "separator": True
+                            }])
+
                     ]
                 }
             }
