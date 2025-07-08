@@ -86,5 +86,3 @@ pip install -r requirements.txt
 [MIT License](LICENSE) – Customize if needed.
 
 ---
-
-> Feel free to improve this README based on your project’s purpose or audience.
