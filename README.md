@@ -47,9 +47,20 @@ pip install -r requirements.txt
 Create a `.env` file in the root directory with necessary variables. Example:
 
 ```env
-DATABASE_URL=postgresql://user:password@localhost:5432/dbname
-TEAMS_WEBHOOK_URL=https://your-teams-webhook-url
-OPENAI_API_KEY=your-key-here
+# Get your Gemini API key from Google AI Studio
+GOOGLE_API_KEY="AIz..."
+
+# Get your Tavily API key from tavily.com
+TAVILY_API_KEY="tvly-dev-..."
+
+# Connection details for your PostgreSQL database
+DATABASE_URL="postgresql://..."
+
+# Connection details for your MongoDB database
+MONGO_URL = "mongodb+srv://..."
+
+# Add the new key for the Teams webhook
+TEAMS_WEBHOOK_URL="https://..."
 ```
 
 ### Running the App
