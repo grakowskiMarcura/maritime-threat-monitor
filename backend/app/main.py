@@ -1,6 +1,7 @@
 import asyncio
 from contextlib import asynccontextmanager # Import this!
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, status, Header
+import os
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -10,6 +11,21 @@ from . import crud, models, schemas
 from .database import SessionLocal, engine
 from .services import rag_agent
 from .services.teams_notifier import send_threat_to_teams
+
+
+
+SECRET_KEY = os.getenv("API_SECRET_KEY")
+
+async def verify_secret_key(x_api_key: str = Header(..., description="API Secret Key")):
+    """
+    Dependency to verify the secret key provided in the X-API-Key header.
+    """
+    if x_api_key != SECRET_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid API Key",
+        )
+    return x_api_key
 
 
 # This queue will hold new threats to be sent to clients as notifications
@@ -151,3 +167,13 @@ async def stream_notifications():
     Endpoint for clients to subscribe to real-time threat notifications.
     """
     return EventSourceResponse(notification_generator())
+
+
+@app.get("/api/discover-threats", dependencies=[Depends(verify_secret_key)])
+async def discover_threats():
+    """
+    Endpoint to trigger the threat discovery process.
+    Protected by a secret key.
+    """
+    await run_threat_discovery_and_save()
+    return {"message": "Threat discovery initiated."}
