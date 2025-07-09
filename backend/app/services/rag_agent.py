@@ -20,7 +20,7 @@ class ThreatReport(BaseModel):
     category: str = Field(description="The category of the threat (e.g., Piracy, Military Conflict, Sanctions, Terrorist Attack).")
     description: str = Field(description="A detailed description of the threat based on the sources found.")
     source_urls: List[str] = Field(description="A list of URLs for the sources used to identify the threat.")
-    date_mentioned: str = Field(description="The date when the threat was mentioned in the sources.")
+    date_mentioned: str = Field(description="The date when the threat was mentioned in the sources. Usually a date on top for the article.")
 
 # Initialize the Gemini model
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
@@ -39,7 +39,7 @@ Extract the following information for each relevant threat:
 - category: A broad category for the threat (e.g., "Geopolitical Instability", "Piracy", "Environmental", "Cyber Attack", "Geopolitical Competition").
 - description: A brief summary (2-3 sentences) of the threat.
 - source_urls: A list of URLs from the search results that support this threat.
-- date_mentioned: The date when the threat was mentioned in the sources. If no date is available, use "Not specified".
+- date_mentioned: The date when the threat was mentioned in the sources. If no date is available, use "Not specified". Usually a date on top for the article.
 
 Format your response as a JSON object with a single key "reports" containing a list of threat objects.
 
