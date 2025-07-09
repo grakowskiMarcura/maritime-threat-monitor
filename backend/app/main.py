@@ -92,7 +92,7 @@ async def lifespan(app: FastAPI):
     # Access the global scheduler variable
     global scheduler 
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(run_threat_discovery_and_save, 'interval', minutes=1)
+    scheduler.add_job(run_threat_discovery_and_save, 'interval', hours=24)
     scheduler.start()
     print("Scheduler started. RAG agent will run periodically.")
 
