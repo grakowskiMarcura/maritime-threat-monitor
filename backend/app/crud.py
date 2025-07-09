@@ -22,6 +22,7 @@ def create_threat(db: Session, threat_data: schemas.ThreatCreate):
         category=threat_data.category,
         description=threat_data.description,
         source_urls=threat_data.source_urls,  # Optional URL for more information
+        date_mentioned=threat_data.date_mentioned  # Assuming this field exists in the Threat model
     )
     db.add(db_threat)
     db.commit()
@@ -33,7 +34,11 @@ def create_threat(db: Session, threat_data: schemas.ThreatCreate):
         "postgres_id": db_threat.id,
         "title": threat_data.title,
         "source_urls": threat_data.source_urls,
-        "created_at": db_threat.created_at
+        "created_at": db_threat.created_at,
+        "region": threat_data.region,
+        "category": threat_data.category,
+        "description": threat_data.description,
+        "date_mentioned": threat_data.date_mentioned  # Assuming this field exists in the Threat model
     }
     # We use 'await' because Motor is an async library
     mongo_db.threat_logs.insert_one(log_entry)

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, JSON
 from sqlalchemy.sql import func
 from .database import Base
 
@@ -13,5 +13,6 @@ class Threat(Base):
     # Automatically set the creation time on the database side
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     # Optional URL for more information
-    source_urls = Column(String)
+    source_urls = Column(JSON)
+    date_mentioned = Column(String)  # Date when the threat was mentioned in the sources
 

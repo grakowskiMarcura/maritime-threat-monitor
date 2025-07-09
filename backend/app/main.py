@@ -57,7 +57,7 @@ async def run_threat_discovery_and_save():
             # Here you should add logic to check if the threat is a duplicate
             # For now, we'll create all of them.
             new_threat_orm = crud.create_threat(db=db, threat_data=report)
-            print(f"New threat saved to DB: {new_threat_orm.title}")
+            #print(f"New threat saved to DB: {new_threat_orm.title}")
             
             # Convert the DB object to a Pydantic schema for the notification
             # No from_orm needed if schema is created directly, but if Threat.from_orm
@@ -68,7 +68,7 @@ async def run_threat_discovery_and_save():
             await notification_queue.put(new_threat_schema)
 
             # --- ADD THIS LINE ---
-            # Send the notification to the Teams channel
+            # Send the notification to the Teams channel            
             await send_threat_to_teams(new_threat_schema)
             # --------------------
 

@@ -47,7 +47,8 @@ async def send_threat_to_teams(threat: schemas.Threat):
                             "facts": [
                                 {"title": "Region:", "value": threat.region},
                                 {"title": "Category:", "value": threat.category},
-                                {"title": "Reported:", "value": f"{threat.created_at.strftime('%Y-%m-%d %H:%M')} UTC"}
+                                {"title": "Published:", "value": f"{threat.date_mentioned}" if threat.date_mentioned else "Not specified"},
+                                {"title": "Reported:", "value": f"{threat.created_at.strftime('%Y-%m-%d %H:%M')} UTC"}  
                             ]
                         },
                         {
@@ -56,22 +57,27 @@ async def send_threat_to_teams(threat: schemas.Threat):
                             "wrap": True,
                             "separator": True
                         },
-                        *([
+                        *(
+                            [
                                 {
                                     "type": "TextBlock",
-                                    "text": f"[Source {i+1}]({url.strip()})",
+                                    "text": f"[{url.split('/')[-2].replace('-', ' ').title()}]({url.strip()})", # Extracts and formats the domain/path for display
                                     "wrap": True,
                                     "separator": True,
                                     "spacing": "Small"
                                 }
-                                for i, url in enumerate(threat.source_urls)
-                            ] if threat.source_urls else [{
-                                "type": "TextBlock",
-                                "text": "No source URLs provided.",
-                                "wrap": True,
-                                "separator": True
-                            }])
-
+                                for url in threat.source_urls
+                            ]
+                            if threat.source_urls
+                            else [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "No source URLs provided.",
+                                    "wrap": True,
+                                    "separator": True
+                                }
+                            ]
+                        )
                     ]
                 }
             }

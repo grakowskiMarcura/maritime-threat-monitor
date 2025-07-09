@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import List
 
@@ -8,7 +8,8 @@ class ThreatBase(BaseModel):
     region: str
     category: str
     description: str
-    source_urls: str
+    source_urls: list[str] = Field(default_factory=list) # Ensure it's a list of strings
+    date_mentioned: str
 
 # Properties needed to create a new threat
 class ThreatCreate(ThreatBase):

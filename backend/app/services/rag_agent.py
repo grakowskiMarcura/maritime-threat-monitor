@@ -20,9 +20,10 @@ class ThreatReport(BaseModel):
     category: str = Field(description="The category of the threat (e.g., Piracy, Military Conflict, Sanctions, Terrorist Attack).")
     description: str = Field(description="A detailed description of the threat based on the sources found.")
     source_urls: List[str] = Field(description="A list of URLs for the sources used to identify the threat.")
+    date_mentioned: str = Field(description="The date when the threat was mentioned in the sources.")
 
 # Initialize the Gemini model
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.2)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
 
 # Initialize the search tool
 search_tool = TavilySearch(max_results=10)
@@ -38,6 +39,7 @@ Extract the following information for each relevant threat:
 - category: A broad category for the threat (e.g., "Geopolitical Instability", "Piracy", "Environmental", "Cyber Attack", "Geopolitical Competition").
 - description: A brief summary (2-3 sentences) of the threat.
 - source_urls: A list of URLs from the search results that support this threat.
+- date_mentioned: The date when the threat was mentioned in the sources. If no date is available, use "Not specified".
 
 Format your response as a JSON object with a single key "reports" containing a list of threat objects.
 
@@ -50,6 +52,7 @@ Example JSON format:
       "category": "Piracy",
       "description": "This is the description of the first threat.",
       "source_urls": ["http://example.com/source1"]
+      "date_mentioned": "June 19, 2025"  # Use a date in any format or "Not specified" if no date is available
     }}
   ]
 }}
