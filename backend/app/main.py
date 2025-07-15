@@ -70,7 +70,7 @@ async def run_threat_discovery_and_save():
 
             # --- ADD THIS LINE ---
             # Send the notification to the Teams channel            
-            #await send_threat_to_teams(new_threat_schema)
+            await send_threat_to_teams(new_threat_schema)
             # --------------------
 
     finally:
