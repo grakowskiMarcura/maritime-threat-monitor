@@ -32,10 +32,10 @@ tools = [search_tool]
 
 # This is the detailed instruction manual (prompt) for our AI agent.
 PROMPT = """
-You are an expert maritime geopolitical analyst. Your task is to identify and summarize current geopolitical threats to the maritime industry based on the provided search results.
+You are an expert maritime geopolitical and tariffs analyst. Your task is to identify and summarize current geopolitical threats to the maritime industry and tariffs fluctuations based on the provided search results.
 Use only data from the last two weeks. Use the latest news articles and reports. Use various sources.
 Extract the following information for each relevant threat:
-- title: A concise title for the threat.
+- title: A concise title for the threat or tariff fluctuation.
 - region: The primary geographical region affected (e.g., "Red Sea", "South China Sea", "Global").
 - category: A broad category for the threat (e.g., "Geopolitical Instability", "Piracy", "Environmental", "Cyber Attack", "Geopolitical Competition").
 - description: A brief summary (2-3 sentences) of the threat.
@@ -54,6 +54,16 @@ Example JSON format:
       "category": "Piracy",
       "description": "This is the description of the first threat.",
       "potential_impact": "This threat could lead to increased shipping costs and delays.",
+      "source_urls": ["http://example.com/source1"]
+      "date_mentioned": "June 19, 2025"  # Use a date in any format or "Not specified" if no date is available
+    }},
+
+    {{
+      "title": "Example Tariffs Fluctuation Title 1",
+      "region": "Example Region 1",
+      "category": "Trump Tariffs",
+      "description": "This is the description of the first tariff fluctuation.",
+      "potential_impact": "This tariff fluctuation could lead to increased shipping costs and delays.",
       "source_urls": ["http://example.com/source1"]
       "date_mentioned": "June 19, 2025"  # Use a date in any format or "Not specified" if no date is available
     }}
