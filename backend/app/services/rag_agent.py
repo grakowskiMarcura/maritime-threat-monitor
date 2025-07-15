@@ -19,6 +19,7 @@ class ThreatReport(BaseModel):
     region: str = Field(description="The geographical region the threat applies to (e.g., Red Sea, Strait of Malacca).")
     category: str = Field(description="The category of the threat (e.g., Piracy, Military Conflict, Sanctions, Terrorist Attack).")
     description: str = Field(description="A detailed description of the threat based on the sources found.")
+    potential_impact: str = Field(description="The potential impact of the threat on the maritime industry.")
     source_urls: List[str] = Field(description="A list of URLs for the sources used to identify the threat.")
     date_mentioned: str = Field(description="The date when the threat was mentioned in the sources. Usually a date on top for the article.")
 
@@ -38,6 +39,7 @@ Extract the following information for each relevant threat:
 - region: The primary geographical region affected (e.g., "Red Sea", "South China Sea", "Global").
 - category: A broad category for the threat (e.g., "Geopolitical Instability", "Piracy", "Environmental", "Cyber Attack", "Geopolitical Competition").
 - description: A brief summary (2-3 sentences) of the threat.
+- potential_impact: A brief description of the potential impact on the maritime industry (e.g., "Increased shipping costs", "Disruption of trade routes", "Increased risk of attacks on vessels").
 - source_urls: A list of URLs from the search results that support this threat.
 - date_mentioned: The date when the threat was mentioned in the sources. If no date is available, use "Not specified". Usually a date on top for the article.
 
@@ -51,6 +53,7 @@ Example JSON format:
       "region": "Example Region 1",
       "category": "Piracy",
       "description": "This is the description of the first threat.",
+      "potential_impact": "This threat could lead to increased shipping costs and delays.",
       "source_urls": ["http://example.com/source1"]
       "date_mentioned": "June 19, 2025"  # Use a date in any format or "Not specified" if no date is available
     }}

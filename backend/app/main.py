@@ -5,6 +5,7 @@ import os
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 from typing import List
 
 from . import crud, models, schemas
@@ -69,7 +70,7 @@ async def run_threat_discovery_and_save():
 
             # --- ADD THIS LINE ---
             # Send the notification to the Teams channel            
-            await send_threat_to_teams(new_threat_schema)
+            #await send_threat_to_teams(new_threat_schema)
             # --------------------
 
     finally:
@@ -92,7 +93,9 @@ async def lifespan(app: FastAPI):
     # Access the global scheduler variable
     global scheduler 
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(run_threat_discovery_and_save, 'interval', hours=24)
+    #scheduler.add_job(run_threat_discovery_and_save, 'interval', minutes=1)
+    scheduler.add_job(run_threat_discovery_and_save,   trigger=CronTrigger(hour=6, minute=0, timezone='UTC')
+
     scheduler.start()
     print("Scheduler started. RAG agent will run periodically.")
 

@@ -21,6 +21,7 @@ def create_threat(db: Session, threat_data: schemas.ThreatCreate):
         region=threat_data.region,
         category=threat_data.category,
         description=threat_data.description,
+        potential_impact=threat_data.potential_impact,  # New field for potential impact
         source_urls=threat_data.source_urls,  # Optional URL for more information
         date_mentioned=threat_data.date_mentioned  # Assuming this field exists in the Threat model
     )
@@ -38,6 +39,7 @@ def create_threat(db: Session, threat_data: schemas.ThreatCreate):
         "region": threat_data.region,
         "category": threat_data.category,
         "description": threat_data.description,
+        "potential_impact": threat_data.potential_impact,  # New field for potential impact
         "date_mentioned": threat_data.date_mentioned  # Assuming this field exists in the Threat model
     }
     # We use 'await' because Motor is an async library

@@ -8,6 +8,7 @@ class ThreatBase(BaseModel):
     region: str
     category: str
     description: str
+    potential_impact: str = Field(default=None, description="The potential impact of the threat on the maritime industry.")
     source_urls: list[str] = Field(default_factory=list) # Ensure it's a list of strings
     date_mentioned: str
 

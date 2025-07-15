@@ -48,6 +48,7 @@ async def send_threat_to_teams(threat: schemas.Threat):
                                 {"title": "Region:", "value": threat.region},
                                 {"title": "Category:", "value": threat.category},
                                 {"title": "Published:", "value": f"{threat.date_mentioned}" if threat.date_mentioned else "Not specified"},
+                                {"title": "Impact:", "value": threat.potential_impact or "Not specified"},
                                 {"title": "Reported:", "value": f"{threat.created_at.strftime('%Y-%m-%d %H:%M')} UTC"}  
                             ]
                         },
